@@ -87,6 +87,36 @@ def verify(thing):
         raise ValueError(thing)
 
 
+def nl_iff_tty(*, printn: bool, ipython: bool):
+    null = not printn
+    end = '\n'
+    if null:
+        end = '\x00'
+    if sys.stdout.isatty():
+        end = '\n'
+        assert not ipython
+    return end
+
+
+def nevd(*, ctx,
+         printn: bool,
+         ipython: bool,
+         verbose: bool,
+         debug: bool,
+         ):
+
+    null = not printn
+    end = nl_iff_tty(printn=printn, ipython=False)
+    if verbose:
+        ctx.obj['verbose'] = verbose
+    verbose = ctx.obj['verbose']
+    if debug:
+        ctx.obj['debug'] = debug
+    debug = ctx.obj['debug']
+
+    return null, end, verbose, debug
+
+
 @click.command()
 @click.option('--verbose', is_flag=True)
 @click.option('--debug', is_flag=True)

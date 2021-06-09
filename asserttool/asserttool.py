@@ -112,7 +112,11 @@ def nevd(*, ctx,
     verbose = ctx.obj['verbose']
     if debug:
         ctx.obj['debug'] = debug
-    debug = ctx.obj['debug']
+    try:
+        debug = ctx.obj['debug']
+    except KeyError:
+        ctx.obj['debug'] = debug
+
 
     return null, end, verbose, debug
 

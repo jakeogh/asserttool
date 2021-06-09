@@ -109,7 +109,11 @@ def nevd(*, ctx,
     end = nl_iff_tty(printn=printn, ipython=False)
     if verbose:
         ctx.obj['verbose'] = verbose
-    verbose = ctx.obj['verbose']
+    try:
+        verbose = ctx.obj['verbose']
+    except KeyError:
+        ctx.obj['verbose'] = verbose
+
     if debug:
         ctx.obj['debug'] = debug
     try:

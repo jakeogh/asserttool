@@ -89,11 +89,11 @@ def verify(thing):
 
 def nl_iff_tty(*, printn: bool, ipython: bool):
     null = not printn
-    end = '\n'
+    end = b'\n'
     if null:
-        end = '\x00'
+        end = b'\x00'
     if sys.stdout.isatty():
-        end = '\n'
+        end = b'\n'
         assert not ipython
     return end
 
@@ -120,7 +120,6 @@ def nevd(*, ctx,
         debug = ctx.obj['debug']
     except KeyError:
         ctx.obj['debug'] = debug
-
 
     return null, end, verbose, debug
 

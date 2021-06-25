@@ -70,7 +70,10 @@ def maxone(thing, *, msg=None):
     raise ValueError(thing)
 
 
-def minone(thing, *, msg=None):
+def minone(thing,
+           *,
+           msg=None,
+           ):
     count = 0
     for x in thing:
         if bool(x):
@@ -87,7 +90,10 @@ def verify(thing):
         raise ValueError(thing)
 
 
-def nl_iff_tty(*, printn: bool, ipython: bool):
+def nl_iff_tty(*,
+               printn: bool,
+               ipython: bool,
+               ):
     null = not printn
     end = b'\n'
     if null:
@@ -132,6 +138,7 @@ def cli(ctx,
         verbose: bool,
         debug: bool,
         ):
+
     minone([True, False])
     maxone([True, False, False])
     verify(True)

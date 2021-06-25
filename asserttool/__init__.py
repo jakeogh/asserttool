@@ -4,6 +4,7 @@ from .asserttool import maxone
 from .asserttool import minone
 from .asserttool import nevd
 from .asserttool import nl_iff_tty
+from .asserttool import not_root
 from .asserttool import one
 from .asserttool import pause
 from .asserttool import root_user

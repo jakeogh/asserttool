@@ -75,11 +75,11 @@ def not_root():
         #raise ValueError('Dont run this as root!')
 
 
-def am_root():
-    if not root_user():
-        ic('You must run this as root!')
-        sys.exit(1)
-        #raise ValueError('Dont run this as root!')
+#def am_root():
+#    if not root_user():
+#        ic('You must run this as root!')
+#        sys.exit(1)
+#        #raise ValueError('Dont run this as root!')
 
 def one(thing, *, msg=None):
     count = 0

@@ -104,7 +104,8 @@ def nl_iff_tty(*,
     return end
 
 
-def nevd(*, ctx,
+def nevd(*,
+         ctx,
          printn: bool,
          ipython: bool,
          verbose: bool,

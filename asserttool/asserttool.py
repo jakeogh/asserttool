@@ -18,7 +18,7 @@
 # pylint: disable=W0201  # attribute defined outside __init__
 # pylint: disable=R0916  # Too many boolean expressions in if statement
 
-
+import os
 import sys
 
 import click
@@ -43,6 +43,43 @@ def validate_slice(slice_syntax):
             raise ValueError(slice_syntax)
     return slice_syntax
 
+
+def embed_ipdb():
+    import ipdb
+    ipdb.set_trace()
+
+
+def pause(message='', ipython=False):
+    assert isinstance(message, str)
+    if ipython:
+        message += " (type 'ipython' to enter shell or 'ipdb' to enter debugger): "
+    response = input(message)
+    if response == "ipdb":
+        embed_ipdb()
+        pause("press enter to continue execution")
+    elif response == "ipython":
+        from IPython import embed; embed()
+        pause("press enter to continue execution")
+
+
+def root_user():
+    if os.getuid() == 0:
+        return True
+    return False
+
+
+def not_root():
+    if root_user():
+        ic('Dont run this as root!')
+        sys.exit(1)
+        #raise ValueError('Dont run this as root!')
+
+
+def am_root():
+    if not root_user():
+        ic('You must run this as root!')
+        sys.exit(1)
+        #raise ValueError('Dont run this as root!')
 
 def one(thing, *, msg=None):
     count = 0
@@ -143,3 +180,5 @@ def cli(ctx,
     minone([True, False])
     maxone([True, False, False])
     verify(True)
+
+

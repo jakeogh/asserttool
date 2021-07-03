@@ -8,4 +8,5 @@ from .asserttool import not_root
 from .asserttool import one
 from .asserttool import pause
 from .asserttool import root_user
+from .asserttool import validate_slice
 from .asserttool import verify

@@ -1,5 +1,7 @@
 #from .asserttool import asserttool
 #from .asserttool import am_root
+from .asserttool import eprint
+from .asserttool import ic
 from .asserttool import maxone
 from .asserttool import minone
 from .asserttool import nevd

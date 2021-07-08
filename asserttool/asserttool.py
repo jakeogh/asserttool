@@ -32,8 +32,10 @@ def eprint(*args, **kwargs):
 
 try:
     from icecream import ic  # https://github.com/gruns/icecream
+    from icecream import icr  # https://github.com/jakeogh/icecream
 except ImportError:
     ic = eprint
+    icr = eprint
 
 
 def validate_slice(slice_syntax):
@@ -180,5 +182,4 @@ def cli(ctx,
     minone([True, False])
     maxone([True, False, False])
     verify(True)
-
 

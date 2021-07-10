@@ -158,6 +158,7 @@ def nevd(*,
          debug: bool,
          ):
 
+    ctx.ensure_object(dict)
     null = not printn
     end = nl_iff_tty(printn=printn, ipython=False)
     if verbose:

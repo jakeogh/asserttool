@@ -47,7 +47,7 @@ def validate_slice(slice_syntax):
 
 
 def click_validate_slice(ctx, param, value):
-    assert not param
+    ic(param, value)
     validate_slice(value)
 
 

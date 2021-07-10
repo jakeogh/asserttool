@@ -48,7 +48,8 @@ def validate_slice(slice_syntax):
 
 def click_validate_slice(ctx, param, value):
     ic(param, value)
-    validate_slice(value)
+    if value is not None:
+        validate_slice(value)
 
 
 def embed_ipdb():

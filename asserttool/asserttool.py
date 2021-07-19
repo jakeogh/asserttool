@@ -131,17 +131,18 @@ def minone(thing,
     raise ValueError(thing)
 
 
-def verify(thing):
-    if not thing:
-        raise ValueError(thing)
-
-#def verify(thing, *, msg=None):
+#def verify(thing):
 #    if not thing:
-#        if msg:
-#            if '{}' in msg:
-#                msg = msg.format(thing)
-#            raise ValueError(msg)
 #        raise ValueError(thing)
+
+# this doesnt work
+def verify(thing, *, msg=None):
+    if not thing:
+        if msg:
+            if '{}' in msg:
+                msg = msg.format(thing)
+            raise ValueError(msg)
+        raise ValueError(thing)
 
 
 def nl_iff_tty(*,

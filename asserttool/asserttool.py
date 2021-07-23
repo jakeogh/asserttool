@@ -45,7 +45,7 @@ def increment_debug(f):
         depth = len(stack)
         ic(depth, args, kwargs)
         if 'verbose' in kwargs.keys():
-            if isinstance(kwargs['verbose'], int):
+            if not isinstance(kwargs['verbose'], bool):
                 kwargs['verbose'] -= depth
             ic(kwargs['verbose'])
         return f(*args, **kwargs)

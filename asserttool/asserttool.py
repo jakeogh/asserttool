@@ -44,6 +44,10 @@ def increment_debug(f):
         stack = inspect.stack()
         depth = len(stack)
         ic(depth, args, kwargs)
+        if 'verbose' in kwargs.keys():
+            if isinstance(kwargs['verbose'], int):
+                kwargs['verbose'] -= depth
+            ic(kwargs['verbose'])
         return f(*args, **kwargs)
     return inner
 

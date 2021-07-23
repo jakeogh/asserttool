@@ -18,6 +18,7 @@
 # pylint: disable=W0201  # attribute defined outside __init__
 # pylint: disable=R0916  # Too many boolean expressions in if statement
 
+import inspect
 import os
 import sys
 
@@ -40,7 +41,9 @@ except ImportError:
 
 def increment_debug(f):
     def inner(*args, **kwargs):
-        ic(args, kwargs)
+        stack = inspect.stack()
+        depth = len(stack)
+        ic(depth, args, kwargs)
         return f(*args, **kwargs)
     return inner
 

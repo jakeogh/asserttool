@@ -46,7 +46,8 @@ def increment_debug(f):
         ic(depth, args, kwargs)
         if 'verbose' in kwargs.keys():
             if not isinstance(kwargs['verbose'], bool):
-                kwargs['verbose'] -= depth
+                current_verbose = kwargs['verbose']
+                kwargs['verbose'] = max(current_verbose - depth, 0)
             ic(kwargs['verbose'])
         return f(*args, **kwargs)
     return inner

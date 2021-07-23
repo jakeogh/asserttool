@@ -49,6 +49,11 @@ def increment_debug(f):
                 current_verbose = kwargs['verbose']
                 kwargs['verbose'] = max(current_verbose - depth, 0)
             ic(kwargs['verbose'])
+        if 'debug' in kwargs.keys():
+            if not isinstance(kwargs['debug'], bool):
+                current_verbose = kwargs['debug']
+                kwargs['debug'] = max(current_verbose - depth, 0)
+            ic(kwargs['debug'])
         return f(*args, **kwargs)
     return inner
 

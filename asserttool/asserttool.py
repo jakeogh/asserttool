@@ -38,6 +38,13 @@ except ImportError:
     icr = eprint
 
 
+def increment_debug(f):
+    def inner(*args, **kwargs):
+        ic(args, kwargs)
+        return f(*args, **kwargs)
+    return inner
+
+
 def validate_slice(slice_syntax):
     assert isinstance(slice_syntax, str)
     for c in slice_syntax:

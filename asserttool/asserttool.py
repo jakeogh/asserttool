@@ -43,17 +43,17 @@ def increment_debug(f):
     def inner(*args, **kwargs):
         stack = inspect.stack()
         depth = len(stack)
-        ic(depth, args, kwargs)
+        #ic(depth, args, kwargs)
         if 'verbose' in kwargs.keys():
             if not isinstance(kwargs['verbose'], bool):
                 current_verbose = kwargs['verbose']
                 kwargs['verbose'] = max(current_verbose - depth, 0)
-            ic(kwargs['verbose'])
+            #ic(kwargs['verbose'])
         if 'debug' in kwargs.keys():
             if not isinstance(kwargs['debug'], bool):
                 current_verbose = kwargs['debug']
                 kwargs['debug'] = max(current_verbose - depth, 0)
-            ic(kwargs['debug'])
+            #ic(kwargs['debug'])
         return f(*args, **kwargs)
     return inner
 

@@ -178,18 +178,25 @@ def nl_iff_tty(*,
         assert not ipython
     return end
 
+from typing import Union
+
 
 def nevd(*,
          ctx,
          printn: bool,
          ipython: bool,
-         verbose: bool,
-         debug: bool,
+         verbose: Union[bool, int],
+         debug: Union[bool, int],
          ):
 
     ctx.ensure_object(dict)
     null = not printn
     end = nl_iff_tty(printn=printn, ipython=False)
+    stack_depth = len(inspect.stack()) - 1
+
+    if verbose:
+        verbose += stack_depth
+
     if verbose:
         ctx.obj['verbose'] = verbose
     try:

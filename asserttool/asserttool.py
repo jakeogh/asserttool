@@ -43,7 +43,7 @@ def increment_debug(f):
     def inner(*args, **kwargs):
         stack = inspect.stack()
         depth = len(stack)
-        #ic(depth, args, kwargs)
+        ic(depth, args, kwargs)
         if 'verbose' in kwargs.keys():
             if not isinstance(kwargs['verbose'], bool):
                 current_verbose = kwargs['verbose']

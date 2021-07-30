@@ -45,14 +45,15 @@ def increment_debug(f):
         depth = len(stack)
         ic(depth, f)
         if 'verbose' in kwargs.keys():
-            ic(kwargs['verbose'])
+            ic(depth, kwargs['verbose'])
 
         #ic(depth, args, kwargs)  # gonna break stuff when this is used for __init__
         if 'verbose' in kwargs.keys():
             if not isinstance(kwargs['verbose'], bool):
                 current_verbose = kwargs['verbose']
-                ic(current_verbose)
+                ic(depth, current_verbose)
                 kwargs['verbose'] = max(current_verbose - depth, 0)
+                ic(depth, kwargs['verbose'])
             #ic(kwargs['verbose'])
         if 'debug' in kwargs.keys():
             if not isinstance(kwargs['debug'], bool):

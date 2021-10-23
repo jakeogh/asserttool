@@ -1,5 +1,6 @@
 #from .asserttool import asserttool
 #from .asserttool import am_root
+from .asserttool import am_root
 from .asserttool import click_validate_slice
 from .asserttool import eprint
 from .asserttool import ic

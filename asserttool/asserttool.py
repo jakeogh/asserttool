@@ -21,6 +21,7 @@
 import inspect
 import os
 import sys
+from typing import Union
 
 import click
 
@@ -110,11 +111,11 @@ def not_root():
         #raise ValueError('Dont run this as root!')
 
 
-#def am_root():
-#    if not root_user():
-#        ic('You must run this as root!')
-#        sys.exit(1)
-#        #raise ValueError('Dont run this as root!')
+def am_root():
+    if not root_user():
+        ic('You must run this as root.')
+        sys.exit(1)
+
 
 def one(thing, *, msg=None):
     count = 0
@@ -184,23 +185,16 @@ def nl_iff_tty(*,
         assert not ipython
     return end
 
-from typing import Union
 
-
-def nevd(*,
-         ctx,
-         printn: bool,
-         ipython: bool,
-         verbose: Union[bool, int],
-         debug: Union[bool, int],
-         ):
+def vd(*,
+       ctx,
+       verbose: Union[bool, int],
+       debug: Union[bool, int],
+       ):
 
     ctx.ensure_object(dict)
-    null = not printn
-    end = nl_iff_tty(printn=printn, ipython=False)
-    stack_depth = len(inspect.stack()) - 1
-
     if verbose:
+        stack_depth = len(inspect.stack()) - 1
         verbose += stack_depth
 
     if verbose:
@@ -216,6 +210,23 @@ def nevd(*,
         debug = ctx.obj['debug']
     except KeyError:
         ctx.obj['debug'] = debug
+
+    return verbose, debug
+
+
+def nevd(*,
+         ctx,
+         printn: bool,
+         ipython: bool,
+         verbose: Union[bool, int],
+         debug: Union[bool, int],
+         ):
+
+    ctx.ensure_object(dict)
+    null = not printn
+    end = nl_iff_tty(printn=printn, ipython=False)
+
+    verbose, debug = vd(ctx=ctx, verbose=verbose, debug=debug)
 
     return null, end, verbose, debug
 

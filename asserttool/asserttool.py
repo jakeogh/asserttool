@@ -158,10 +158,6 @@ def minone(thing,
     raise ValueError(thing)
 
 
-#def verify(thing):
-#    if not thing:
-#        raise ValueError(thing)
-
 # this doesnt work
 def verify(thing, *, msg=None):
     if not thing:
@@ -225,10 +221,26 @@ def nevd(*,
     ctx.ensure_object(dict)
     null = not printn
     end = nl_iff_tty(printn=printn, ipython=False)
-
     verbose, debug = vd(ctx=ctx, verbose=verbose, debug=debug)
 
     return null, end, verbose, debug
+
+
+def tnevd(*,
+          ctx,
+          printn: bool,
+          ipython: bool,
+          verbose: Union[bool, int],
+          debug: Union[bool, int],
+          ):
+
+    ctx.ensure_object(dict)
+    null = not printn
+    end = nl_iff_tty(printn=printn, ipython=False)
+    tty = True if end == b'\n' else False
+    verbose, debug = vd(ctx=ctx, verbose=verbose, debug=debug)
+
+    return tty, null, end, verbose, debug
 
 
 @click.command()

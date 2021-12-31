@@ -3,6 +3,7 @@
 from .asserttool import am_root
 from .asserttool import click_validate_slice
 from .asserttool import eprint
+from .asserttool import evd
 from .asserttool import ic
 from .asserttool import icr
 from .asserttool import increment_debug

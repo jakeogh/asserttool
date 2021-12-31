@@ -210,6 +210,21 @@ def vd(*,
     return verbose, debug
 
 
+def evd(*,
+        ctx,
+        printn: bool,
+        ipython: bool,
+        verbose: Union[bool, int],
+        debug: Union[bool, int],
+        ):
+
+    ctx.ensure_object(dict)
+    end = nl_iff_tty(printn=printn, ipython=ipython)
+    verbose, debug = vd(ctx=ctx, verbose=verbose, debug=debug)
+
+    return end, verbose, debug
+
+
 def nevd(*,
          ctx,
          printn: bool,
@@ -219,9 +234,8 @@ def nevd(*,
          ):
 
     ctx.ensure_object(dict)
+    end, verbose, debug = evd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, debug=debug)
     null = not printn
-    end = nl_iff_tty(printn=printn, ipython=False)
-    verbose, debug = vd(ctx=ctx, verbose=verbose, debug=debug)
 
     return null, end, verbose, debug
 

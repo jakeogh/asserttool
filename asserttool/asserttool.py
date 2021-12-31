@@ -158,14 +158,14 @@ def minone(thing,
     raise ValueError(thing)
 
 
-# this doesnt work
-def verify(thing, *, msg=None):
-    if not thing:
-        if msg:
-            if '{}' in msg:
-                msg = msg.format(thing)
-            raise ValueError(msg)
-        raise ValueError(thing)
+## this doesnt work
+#def verify(thing, *, msg=None):
+#    if not thing:
+#        if msg:
+#            if '{}' in msg:
+#                msg = msg.format(thing)
+#            raise ValueError(msg)
+#        raise ValueError(thing)
 
 
 def nl_iff_tty(*,
@@ -240,6 +240,22 @@ def nevd(*,
     return null, end, verbose, debug
 
 
+def tevd(*,
+         ctx,
+         printn: bool,
+         ipython: bool,
+         verbose: Union[bool, int],
+         debug: Union[bool, int],
+         ):
+
+    ctx.ensure_object(dict)
+    end, verbose, debug = evd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, debug=debug)
+    #tty = True if end == b'\n' else False
+    tty = sys.stdout.isatty()
+
+    return tty, end, verbose, debug
+
+
 def tnevd(*,
           ctx,
           printn: bool,
@@ -249,10 +265,8 @@ def tnevd(*,
           ):
 
     ctx.ensure_object(dict)
+    tty, end, verbose, debug = tevd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, debug=debug)
     null = not printn
-    end = nl_iff_tty(printn=printn, ipython=False)
-    tty = True if end == b'\n' else False
-    verbose, debug = vd(ctx=ctx, verbose=verbose, debug=debug)
 
     return tty, null, end, verbose, debug
 
@@ -268,5 +282,5 @@ def cli(ctx,
 
     minone([True, False])
     maxone([True, False, False])
-    verify(True)
+    #verify(True)
 

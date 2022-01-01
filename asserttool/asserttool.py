@@ -182,6 +182,43 @@ def nl_iff_tty(*,
         assert not ipython
     return end
 
+def _v(*,
+       ctx,
+       verbose: Union[bool, float, int],
+       verbose_inf: bool,
+       ):
+
+    ctx.ensure_object(dict)
+    if verbose_inf:
+        verbose = inf
+        return verbose
+
+    if verbose:
+        stack_depth = len(inspect.stack()) - 1
+        verbose += stack_depth
+
+    if verbose:
+        ctx.obj['verbose'] = verbose  # make sure ctx has the 'verbose' key set correctly
+    try:
+        verbose = ctx.obj['verbose']  # KeyError if verbose is False, otherwise obtain current verbose level in the ctx
+    except KeyError:
+        ctx.obj['verbose'] = verbose  # disable verbose
+
+    return verbose
+
+
+def tv(*,
+       ctx,
+       verbose: Union[bool, int],
+       verbose_inf: bool,
+       ):
+
+    ctx.ensure_object(dict)
+    verbose = _v(ctx=ctx, verbose=verbose, verbose_inf=verbose_inf,)
+    tty = sys.stdout.isatty()
+
+    return tty, verbose
+
 
 def vd(*,
        ctx,

@@ -21,6 +21,7 @@
 import inspect
 import os
 import sys
+from math import inf
 from typing import Union
 
 import click
@@ -184,21 +185,27 @@ def nl_iff_tty(*,
 
 def vd(*,
        ctx,
-       verbose: Union[bool, int],
+       verbose: Union[bool, float, int],
+       verbose_inf: bool,
        debug: Union[bool, int],
        ):
 
     ctx.ensure_object(dict)
+    if verbose_inf:
+        verbose = inf
+        debug = True
+        return verbose, debug
+
     if verbose:
         stack_depth = len(inspect.stack()) - 1
         verbose += stack_depth
 
     if verbose:
-        ctx.obj['verbose'] = verbose
+        ctx.obj['verbose'] = verbose  # make sure ctx has the 'verbose' key set correctly
     try:
-        verbose = ctx.obj['verbose']
+        verbose = ctx.obj['verbose']  # KeyError if verbose is False, otherwise obtain current verbose level in the ctx
     except KeyError:
-        ctx.obj['verbose'] = verbose
+        ctx.obj['verbose'] = verbose  # disable verbose
 
     if debug:
         ctx.obj['debug'] = debug
@@ -215,12 +222,13 @@ def evd(*,
         printn: bool,
         ipython: bool,
         verbose: Union[bool, int],
+        verbose_inf: bool,
         debug: Union[bool, int],
         ):
 
     ctx.ensure_object(dict)
     end = nl_iff_tty(printn=printn, ipython=ipython)
-    verbose, debug = vd(ctx=ctx, verbose=verbose, debug=debug)
+    verbose, debug = vd(ctx=ctx, verbose=verbose, verbose_inf=verbose_inf, debug=debug)
 
     return end, verbose, debug
 
@@ -230,11 +238,12 @@ def nevd(*,
          printn: bool,
          ipython: bool,
          verbose: Union[bool, int],
+         verbose_inf: bool,
          debug: Union[bool, int],
          ):
 
     ctx.ensure_object(dict)
-    end, verbose, debug = evd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, debug=debug)
+    end, verbose, debug = evd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, verbose_inf=verbose_inf, debug=debug)
     null = not printn
 
     return null, end, verbose, debug
@@ -245,11 +254,12 @@ def tevd(*,
          printn: bool,
          ipython: bool,
          verbose: Union[bool, int],
+         verbose_inf: bool,
          debug: Union[bool, int],
          ):
 
     ctx.ensure_object(dict)
-    end, verbose, debug = evd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, debug=debug)
+    end, verbose, debug = evd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, verbose_inf=verbose_inf, debug=debug)
     #tty = True if end == b'\n' else False
     tty = sys.stdout.isatty()
 
@@ -261,26 +271,28 @@ def tnevd(*,
           printn: bool,
           ipython: bool,
           verbose: Union[bool, int],
+          verbose_inf: Union[bool, int],
           debug: Union[bool, int],
           ):
 
     ctx.ensure_object(dict)
-    tty, end, verbose, debug = tevd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, debug=debug)
+    tty, end, verbose, debug = tevd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, verbose_inf=verbose_inf, debug=debug)
     null = not printn
 
     return tty, null, end, verbose, debug
 
 
 @click.command()
-@click.option('--verbose', is_flag=True)
+@click.option('--verbose', count=True)
+@click.option('--verbose-inf', is_flag=True)
 @click.option('--debug', is_flag=True)
 @click.pass_context
 def cli(ctx,
-        verbose: bool,
+        verbose: int,
+        verbose_inf: bool,
         debug: bool,
         ):
 
     minone([True, False])
     maxone([True, False, False])
-    #verify(True)
 

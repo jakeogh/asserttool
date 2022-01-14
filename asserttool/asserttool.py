@@ -182,6 +182,7 @@ def nl_iff_tty(*,
         assert not ipython
     return end
 
+
 def _v(*,
        ctx,
        verbose: Union[bool, float, int],
@@ -209,10 +210,12 @@ def _v(*,
 
 def tv(*,
        ctx,
-       verbose: Union[bool, int],
+       verbose: int,
        verbose_inf: bool,
-       ):
+       ) -> tuple[bool, int]:
 
+    #if sys.stdout.isatty():
+    #    assert not ipython
     ctx.ensure_object(dict)
     verbose = _v(ctx=ctx, verbose=verbose, verbose_inf=verbose_inf,)
     tty = sys.stdout.isatty()

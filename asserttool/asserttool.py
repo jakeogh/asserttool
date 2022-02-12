@@ -25,13 +25,7 @@ from math import inf
 from typing import Union
 
 import click
-
-
-def eprint(*args, **kwargs):
-    if 'file' in kwargs.keys():
-        kwargs.pop('file')
-    print(*args, file=sys.stderr, **kwargs)
-
+from eprint import eprint
 
 try:
     from icecream import ic  # https://github.com/gruns/icecream
@@ -210,7 +204,7 @@ def _v(*,
 
 def tv(*,
        ctx,
-       verbose: int,
+       verbose: Union[bool, int, float],
        verbose_inf: bool,
        ) -> tuple[bool, int]:
 
@@ -261,7 +255,7 @@ def evd(*,
         ctx,
         printn: bool,
         ipython: bool,
-        verbose: Union[bool, int],
+        verbose: Union[bool, int, float],
         verbose_inf: bool,
         debug: Union[bool, int],
         ):
@@ -277,7 +271,7 @@ def nevd(*,
          ctx,
          printn: bool,
          ipython: bool,
-         verbose: Union[bool, int],
+         verbose: Union[bool, int, float],
          verbose_inf: bool,
          debug: Union[bool, int],
          ):
@@ -293,7 +287,7 @@ def tevd(*,
          ctx,
          printn: bool,
          ipython: bool,
-         verbose: Union[bool, int],
+         verbose: Union[bool, int, float],
          verbose_inf: bool,
          debug: Union[bool, int],
          ):
@@ -310,8 +304,8 @@ def tnevd(*,
           ctx,
           printn: bool,
           ipython: bool,
-          verbose: Union[bool, int],
-          verbose_inf: Union[bool, int],
+          verbose: Union[bool, int, float],
+          verbose_inf: bool,
           debug: Union[bool, int],
           ):
 

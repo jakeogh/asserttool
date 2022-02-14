@@ -25,14 +25,14 @@ from math import inf
 from typing import Union
 
 import click
-from eprint import eprint
+from epprint import epprint
 
 try:
     from icecream import ic  # https://github.com/gruns/icecream
     from icecream import icr  # https://github.com/jakeogh/icecream
 except ImportError:
-    ic = eprint
-    icr = eprint
+    ic = epprint
+    icr = epprint
 
 
 def increment_debug(f):
@@ -163,157 +163,157 @@ def minone(thing,
 #        raise ValueError(thing)
 
 
-def nl_iff_tty(*,
-               printn: bool,
-               ipython: bool,
-               ):
-    null = not printn
-    end = b'\n'
-    if null:
-        end = b'\x00'
-    if sys.stdout.isatty():
-        end = b'\n'
-        assert not ipython
-    return end
-
-
-def _v(*,
-       ctx,
-       verbose: Union[bool, float, int],
-       verbose_inf: bool,
-       ):
-
-    ctx.ensure_object(dict)
-    if verbose_inf:
-        verbose = inf
-        return verbose
-
-    if verbose:
-        stack_depth = len(inspect.stack()) - 1
-        verbose += stack_depth
-
-    if verbose:
-        ctx.obj['verbose'] = verbose  # make sure ctx has the 'verbose' key set correctly
-    try:
-        verbose = ctx.obj['verbose']  # KeyError if verbose is False, otherwise obtain current verbose level in the ctx
-    except KeyError:
-        ctx.obj['verbose'] = verbose  # disable verbose
-
-    return verbose
-
-
-def tv(*,
-       ctx,
-       verbose: Union[bool, int, float],
-       verbose_inf: bool,
-       ) -> tuple[bool, int]:
-
-    #if sys.stdout.isatty():
-    #    assert not ipython
-    ctx.ensure_object(dict)
-    verbose = _v(ctx=ctx, verbose=verbose, verbose_inf=verbose_inf,)
-    tty = sys.stdout.isatty()
-
-    return tty, verbose
-
-
-def vd(*,
-       ctx,
-       verbose: Union[bool, float, int],
-       verbose_inf: bool,
-       debug: Union[bool, int],
-       ):
-
-    ctx.ensure_object(dict)
-    if verbose_inf:
-        verbose = inf
-        debug = True
-        return verbose, debug
-
-    if verbose:
-        stack_depth = len(inspect.stack()) - 1
-        verbose += stack_depth
-
-    if verbose:
-        ctx.obj['verbose'] = verbose  # make sure ctx has the 'verbose' key set correctly
-    try:
-        verbose = ctx.obj['verbose']  # KeyError if verbose is False, otherwise obtain current verbose level in the ctx
-    except KeyError:
-        ctx.obj['verbose'] = verbose  # disable verbose
-
-    if debug:
-        ctx.obj['debug'] = debug
-    try:
-        debug = ctx.obj['debug']
-    except KeyError:
-        ctx.obj['debug'] = debug
-
-    return verbose, debug
-
-
-def evd(*,
-        ctx,
-        printn: bool,
-        ipython: bool,
-        verbose: Union[bool, int, float],
-        verbose_inf: bool,
-        debug: Union[bool, int],
-        ):
-
-    ctx.ensure_object(dict)
-    end = nl_iff_tty(printn=printn, ipython=ipython)
-    verbose, debug = vd(ctx=ctx, verbose=verbose, verbose_inf=verbose_inf, debug=debug)
-
-    return end, verbose, debug
-
-
-def nevd(*,
-         ctx,
-         printn: bool,
-         ipython: bool,
-         verbose: Union[bool, int, float],
-         verbose_inf: bool,
-         debug: Union[bool, int],
-         ):
-
-    ctx.ensure_object(dict)
-    end, verbose, debug = evd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, verbose_inf=verbose_inf, debug=debug)
-    null = not printn
-
-    return null, end, verbose, debug
-
-
-def tevd(*,
-         ctx,
-         printn: bool,
-         ipython: bool,
-         verbose: Union[bool, int, float],
-         verbose_inf: bool,
-         debug: Union[bool, int],
-         ):
-
-    ctx.ensure_object(dict)
-    end, verbose, debug = evd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, verbose_inf=verbose_inf, debug=debug)
-    #tty = True if end == b'\n' else False
-    tty = sys.stdout.isatty()
-
-    return tty, end, verbose, debug
-
-
-def tnevd(*,
-          ctx,
-          printn: bool,
-          ipython: bool,
-          verbose: Union[bool, int, float],
-          verbose_inf: bool,
-          debug: Union[bool, int],
-          ):
-
-    ctx.ensure_object(dict)
-    tty, end, verbose, debug = tevd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, verbose_inf=verbose_inf, debug=debug)
-    null = not printn
-
-    return tty, null, end, verbose, debug
+#def nl_iff_tty(*,
+#               printn: bool,
+#               ipython: bool,
+#               ):
+#    null = not printn
+#    end = b'\n'
+#    if null:
+#        end = b'\x00'
+#    if sys.stdout.isatty():
+#        end = b'\n'
+#        assert not ipython
+#    return end
+#
+#
+#def _v(*,
+#       ctx,
+#       verbose: Union[bool, float, int],
+#       verbose_inf: bool,
+#       ):
+#
+#    ctx.ensure_object(dict)
+#    if verbose_inf:
+#        verbose = inf
+#        return verbose
+#
+#    if verbose:
+#        stack_depth = len(inspect.stack()) - 1
+#        verbose += stack_depth
+#
+#    if verbose:
+#        ctx.obj['verbose'] = verbose  # make sure ctx has the 'verbose' key set correctly
+#    try:
+#        verbose = ctx.obj['verbose']  # KeyError if verbose is False, otherwise obtain current verbose level in the ctx
+#    except KeyError:
+#        ctx.obj['verbose'] = verbose  # disable verbose
+#
+#    return verbose
+#
+#
+#def tv(*,
+#       ctx,
+#       verbose: Union[bool, int, float],
+#       verbose_inf: bool,
+#       ) -> tuple[bool, int]:
+#
+#    #if sys.stdout.isatty():
+#    #    assert not ipython
+#    ctx.ensure_object(dict)
+#    verbose = _v(ctx=ctx, verbose=verbose, verbose_inf=verbose_inf,)
+#    tty = sys.stdout.isatty()
+#
+#    return tty, verbose
+#
+#
+#def vd(*,
+#       ctx,
+#       verbose: Union[bool, float, int],
+#       verbose_inf: bool,
+#       debug: Union[bool, int],
+#       ):
+#
+#    ctx.ensure_object(dict)
+#    if verbose_inf:
+#        verbose = inf
+#        debug = True
+#        return verbose, debug
+#
+#    if verbose:
+#        stack_depth = len(inspect.stack()) - 1
+#        verbose += stack_depth
+#
+#    if verbose:
+#        ctx.obj['verbose'] = verbose  # make sure ctx has the 'verbose' key set correctly
+#    try:
+#        verbose = ctx.obj['verbose']  # KeyError if verbose is False, otherwise obtain current verbose level in the ctx
+#    except KeyError:
+#        ctx.obj['verbose'] = verbose  # disable verbose
+#
+#    if debug:
+#        ctx.obj['debug'] = debug
+#    try:
+#        debug = ctx.obj['debug']
+#    except KeyError:
+#        ctx.obj['debug'] = debug
+#
+#    return verbose, debug
+#
+#
+#def evd(*,
+#        ctx,
+#        printn: bool,
+#        ipython: bool,
+#        verbose: Union[bool, int, float],
+#        verbose_inf: bool,
+#        debug: Union[bool, int],
+#        ):
+#
+#    ctx.ensure_object(dict)
+#    end = nl_iff_tty(printn=printn, ipython=ipython)
+#    verbose, debug = vd(ctx=ctx, verbose=verbose, verbose_inf=verbose_inf, debug=debug)
+#
+#    return end, verbose, debug
+#
+#
+#def nevd(*,
+#         ctx,
+#         printn: bool,
+#         ipython: bool,
+#         verbose: Union[bool, int, float],
+#         verbose_inf: bool,
+#         debug: Union[bool, int],
+#         ):
+#
+#    ctx.ensure_object(dict)
+#    end, verbose, debug = evd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, verbose_inf=verbose_inf, debug=debug)
+#    null = not printn
+#
+#    return null, end, verbose, debug
+#
+#
+#def tevd(*,
+#         ctx,
+#         printn: bool,
+#         ipython: bool,
+#         verbose: Union[bool, int, float],
+#         verbose_inf: bool,
+#         debug: Union[bool, int],
+#         ):
+#
+#    ctx.ensure_object(dict)
+#    end, verbose, debug = evd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, verbose_inf=verbose_inf, debug=debug)
+#    #tty = True if end == b'\n' else False
+#    tty = sys.stdout.isatty()
+#
+#    return tty, end, verbose, debug
+#
+#
+#def tnevd(*,
+#          ctx,
+#          printn: bool,
+#          ipython: bool,
+#          verbose: Union[bool, int, float],
+#          verbose_inf: bool,
+#          debug: Union[bool, int],
+#          ):
+#
+#    ctx.ensure_object(dict)
+#    tty, end, verbose, debug = tevd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, verbose_inf=verbose_inf, debug=debug)
+#    null = not printn
+#
+#    return tty, null, end, verbose, debug
 
 
 @click.command()

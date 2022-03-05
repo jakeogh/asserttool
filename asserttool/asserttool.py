@@ -39,37 +39,53 @@ def increment_debug(f):
     def inner(*args, **kwargs):
         stack = inspect.stack()
         depth = len(stack)
-        #ic(depth, f)
-        #if 'verbose' in kwargs.keys():
+        # ic(depth, f)
+        # if 'verbose' in kwargs.keys():
         #    ic(depth, kwargs['verbose'])
 
-        #ic(depth, args, kwargs)  # gonna break stuff when this is used for __init__
-        if 'verbose' in kwargs.keys():
-            if not isinstance(kwargs['verbose'], bool):
-                current_verbose = kwargs['verbose']
-                #ic(depth, current_verbose)
-                kwargs['verbose'] = max(current_verbose - depth, 0)
-                #ic(depth, kwargs['verbose'])
-            #ic(kwargs['verbose'])
-        if 'debug' in kwargs.keys():
-            if not isinstance(kwargs['debug'], bool):
-                current_verbose = kwargs['debug']
-                kwargs['debug'] = max(current_verbose - depth, 0)
-            #ic(kwargs['debug'])
+        # ic(depth, args, kwargs)  # gonna break stuff when this is used for __init__
+        if "verbose" in kwargs.keys():
+            if not isinstance(kwargs["verbose"], bool):
+                current_verbose = kwargs["verbose"]
+                # ic(depth, current_verbose)
+                kwargs["verbose"] = max(current_verbose - depth, 0)
+                # ic(depth, kwargs['verbose'])
+            # ic(kwargs['verbose'])
+        if "debug" in kwargs.keys():
+            if not isinstance(kwargs["debug"], bool):
+                current_verbose = kwargs["debug"]
+                kwargs["debug"] = max(current_verbose - depth, 0)
+            # ic(kwargs['debug'])
         return f(*args, **kwargs)
+
     return inner
 
 
 def validate_slice(slice_syntax):
     assert isinstance(slice_syntax, str)
     for c in slice_syntax:
-        if c not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '[', ']', ':']:
+        if c not in [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "-",
+            "[",
+            "]",
+            ":",
+        ]:
             raise ValueError(slice_syntax)
     return slice_syntax
 
 
 def click_validate_slice(ctx, param, value):
-    #ic(param, value)
+    # ic(param, value)
     if value is not None:
         validate_slice(value)
         return value
@@ -77,10 +93,11 @@ def click_validate_slice(ctx, param, value):
 
 def embed_ipdb():
     import ipdb
+
     ipdb.set_trace()
 
 
-def pause(message='', ipython=False):
+def pause(message="", ipython=False):
     assert isinstance(message, str)
     if ipython:
         message += " (type 'ipython' to enter shell or 'ipdb' to enter debugger): "
@@ -89,7 +106,9 @@ def pause(message='', ipython=False):
         embed_ipdb()
         pause("press enter to continue execution")
     elif response == "ipython":
-        from IPython import embed; embed()
+        from IPython import embed
+
+        embed()
         pause("press enter to continue execution")
 
 
@@ -101,24 +120,24 @@ def root_user():
 
 def not_root():
     if root_user():
-        ic('Dont run this as root!')
+        ic("Dont run this as root!")
         sys.exit(1)
-        #raise ValueError('Dont run this as root!')
+        # raise ValueError('Dont run this as root!')
 
 
 def am_root():
     if not root_user():
-        ic('You must run this as root.')
+        ic("You must run this as root.")
         sys.exit(1)
 
 
 def one(thing, *, msg=None):
     count = 0
     for x in thing:
-        #eprint("x:", x, bool(x))
+        # eprint("x:", x, bool(x))
         if bool(x):
             count += 1
-    #count = sum(1 for x in thing if bool(x))
+    # count = sum(1 for x in thing if bool(x))
     if count == 1:
         return True
     if msg:
@@ -138,10 +157,11 @@ def maxone(thing, *, msg=None):
     raise ValueError(thing)
 
 
-def minone(thing,
-           *,
-           msg=None,
-           ):
+def minone(
+    thing,
+    *,
+    msg=None,
+):
     count = 0
     for x in thing:
         if bool(x):
@@ -154,7 +174,7 @@ def minone(thing,
 
 
 ## this doesnt work
-#def verify(thing, *, msg=None):
+# def verify(thing, *, msg=None):
 #    if not thing:
 #        if msg:
 #            if '{}' in msg:
@@ -163,7 +183,7 @@ def minone(thing,
 #        raise ValueError(thing)
 
 
-#def nl_iff_tty(*,
+# def nl_iff_tty(*,
 #               printn: bool,
 #               ipython: bool,
 #               ):
@@ -177,7 +197,7 @@ def minone(thing,
 #    return end
 #
 #
-#def _v(*,
+# def _v(*,
 #       ctx,
 #       verbose: Union[bool, float, int],
 #       verbose_inf: bool,
@@ -202,7 +222,7 @@ def minone(thing,
 #    return verbose
 #
 #
-#def tv(*,
+# def tv(*,
 #       ctx,
 #       verbose: Union[bool, int, float],
 #       verbose_inf: bool,
@@ -217,7 +237,7 @@ def minone(thing,
 #    return tty, verbose
 #
 #
-#def vd(*,
+# def vd(*,
 #       ctx,
 #       verbose: Union[bool, float, int],
 #       verbose_inf: bool,
@@ -241,7 +261,7 @@ def minone(thing,
 #    except KeyError:
 #        ctx.obj['verbose'] = verbose  # disable verbose
 #
-#    if debug:
+#    if verbose == inf:
 #        ctx.obj['debug'] = debug
 #    try:
 #        debug = ctx.obj['debug']
@@ -251,7 +271,7 @@ def minone(thing,
 #    return verbose, debug
 #
 #
-#def evd(*,
+# def evd(*,
 #        ctx,
 #        printn: bool,
 #        ipython: bool,
@@ -262,12 +282,12 @@ def minone(thing,
 #
 #    ctx.ensure_object(dict)
 #    end = nl_iff_tty(printn=printn, ipython=ipython)
-#    verbose, debug = vd(ctx=ctx, verbose=verbose, verbose_inf=verbose_inf, debug=debug)
+#    verbose, debug = vd(ctx=ctx, verbose=verbose, verbose_inf=verbose_inf,)
 #
 #    return end, verbose, debug
 #
 #
-#def nevd(*,
+# def nevd(*,
 #         ctx,
 #         printn: bool,
 #         ipython: bool,
@@ -277,13 +297,13 @@ def minone(thing,
 #         ):
 #
 #    ctx.ensure_object(dict)
-#    end, verbose, debug = evd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, verbose_inf=verbose_inf, debug=debug)
+#    end, verbose, debug = evd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, verbose_inf=verbose_inf,)
 #    null = not printn
 #
 #    return null, end, verbose, debug
 #
 #
-#def tevd(*,
+# def tevd(*,
 #         ctx,
 #         printn: bool,
 #         ipython: bool,
@@ -293,14 +313,14 @@ def minone(thing,
 #         ):
 #
 #    ctx.ensure_object(dict)
-#    end, verbose, debug = evd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, verbose_inf=verbose_inf, debug=debug)
+#    end, verbose, debug = evd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, verbose_inf=verbose_inf,)
 #    #tty = True if end == b'\n' else False
 #    tty = sys.stdout.isatty()
 #
 #    return tty, end, verbose, debug
 #
 #
-#def tnevd(*,
+# def tnevd(*,
 #          ctx,
 #          printn: bool,
 #          ipython: bool,
@@ -310,23 +330,7 @@ def minone(thing,
 #          ):
 #
 #    ctx.ensure_object(dict)
-#    tty, end, verbose, debug = tevd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, verbose_inf=verbose_inf, debug=debug)
+#    tty, end, verbose, debug = tevd(ctx=ctx, printn=printn, ipython=ipython, verbose=verbose, verbose_inf=verbose_inf,)
 #    null = not printn
 #
 #    return tty, null, end, verbose, debug
-
-
-@click.command()
-@click.option('--verbose', count=True)
-@click.option('--verbose-inf', is_flag=True)
-@click.option('--debug', is_flag=True)
-@click.pass_context
-def cli(ctx,
-        verbose: int,
-        verbose_inf: bool,
-        debug: bool,
-        ):
-
-    minone([True, False])
-    maxone([True, False, False])
-

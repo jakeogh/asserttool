@@ -64,7 +64,7 @@ def increment_debug(f):
 def validate_slice(slice_syntax):
     assert isinstance(slice_syntax, str)
     assert slice_syntax.startswith("[")
-    assert slice_syntax.endswith("[")
+    assert slice_syntax.endswith("]")
     for c in slice_syntax[1:-1]:
         if c not in [
             "0",

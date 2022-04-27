@@ -24,10 +24,13 @@ import sys
 
 from epprint import epprint
 
-# from math import inf
-# from typing import Union
-
-
+# enable other apps to "from asserttool import ic" with failback to epprint
+try:
+    from icecream import ic  # https://github.com/gruns/icecream
+    from icecream import icr  # https://github.com/jakeogh/icecream
+except ImportError:
+    ic = epprint
+    icr = epprint
 
 
 def increment_debug(f):

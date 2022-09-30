@@ -27,11 +27,13 @@ from epprint import epprint
 # enable other apps to "from asserttool import ic" with failback to epprint
 try:
     from icecream import ic  # https://github.com/gruns/icecream
-    from icecream import icr  # https://github.com/jakeogh/icecream
 except ImportError:
     ic = epprint
-    icr = epprint
 
+try:
+    from icecream import icr  # https://github.com/jakeogh/icecream
+except ImportError:
+    icr = epprint
 
 # def all_none(obj: object, verbose: bool|int|float):
 #    for i in obj:

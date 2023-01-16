@@ -1,4 +1,3 @@
-# from .asserttool import increment_debug
 from .asserttool import am_root
 from .asserttool import click_validate_slice
 from .asserttool import ic
@@ -12,3 +11,4 @@ from .asserttool import root_user
 from .asserttool import validate_slice
 
 # from .asserttool import verify
+# from .asserttool import increment_debug

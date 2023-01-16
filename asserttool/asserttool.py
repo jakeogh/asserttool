@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf8 -*-
+# disable: byte-vector-replacer
 
 # pylint: disable=missing-docstring               # [C0111] docstrings are always outdated and wrong
 # pylint: disable=fixme                           # [W0511] todo is encouraged
@@ -26,12 +27,12 @@ from epprint import epprint
 
 # enable other apps to "from asserttool import ic" with failback to epprint
 try:
-    from asserttool import ic  # https://github.com/gruns/icecream
+    from icecream import ic  # https://github.com/gruns/icecream
 except ImportError:
     ic = epprint
 
 try:
-    from asserttool import icr  # https://github.com/jakeogh/icecream
+    from icecream import icr  # https://github.com/jakeogh/icecream
 except ImportError:
     icr = epprint
 

@@ -22,14 +22,25 @@
 import inspect
 import os
 import sys
+from typing import Any
 
 from epprint import epprint
 
 # enable other apps to "from asserttool import ic" with failback to epprint
+ic: Any = None
+icr: Any = None
+icp: Any = None
 try:
     from icecream import ic  # https://github.com/gruns/icecream
 except ImportError:
     ic = epprint
+
+try:
+    from icecream import IceCreamDebugger
+
+    icp = IceCreamDebugger()
+except ImportError:
+    icp = epprint
 
 try:
     from icecream import icr  # https://github.com/jakeogh/icecream
@@ -40,6 +51,7 @@ except ImportError:
 #    for i in obj:
 #        if i:
 #            return False
+
 
 # woah... sloooooo
 def disable_increment_debug(f):

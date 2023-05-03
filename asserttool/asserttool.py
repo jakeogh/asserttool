@@ -19,6 +19,8 @@
 # pylint: disable=attribute-defined-outside-init  # [W0201]
 # pylint: disable=too-many-boolean-expressions    # [R0916] in if statement
 
+from __future__ import annotations
+
 import inspect
 import os
 import sys
@@ -80,7 +82,7 @@ def disable_increment_debug(f):
     return inner
 
 
-def validate_slice(slice_syntax):
+def validate_slice(slice_syntax: str):
     assert isinstance(slice_syntax, str)
     assert slice_syntax.startswith("[")
     assert slice_syntax.endswith("]")
@@ -111,12 +113,15 @@ def click_validate_slice(ctx, param, value):
 
 
 def embed_ipdb():
+    # pylint: disable=import-error
     import ipdb
+
+    # pylint: enable=import-error
 
     ipdb.set_trace()
 
 
-def pause(message="", ipython=False):
+def pause(message: str = "", ipython: bool = False):
     assert isinstance(message, str)
     if ipython:
         message += " (type 'ipython' to enter shell or 'ipdb' to enter debugger): "
@@ -150,7 +155,7 @@ def am_root():
         sys.exit(1)
 
 
-def one(thing, *, msg=None):
+def one(thing, *, msg: None | str = None):
     count = 0
     for x in thing:
         # eprint("x:", x, bool(x))
@@ -164,7 +169,7 @@ def one(thing, *, msg=None):
     raise ValueError(thing)
 
 
-def maxone(thing, *, msg=None):
+def maxone(thing, *, msg: None | str = None):
     count = 0
     for x in thing:
         if bool(x):
@@ -179,7 +184,7 @@ def maxone(thing, *, msg=None):
 def minone(
     thing,
     *,
-    msg=None,
+    msg: None | str = None,
 ):
     count = 0
     for x in thing:

@@ -5,7 +5,10 @@ from setuptools import setup
 
 import fastentrypoints
 
-dependencies = ["epprint @ git+https://git@github.com/jakeogh/epprint"]
+dependencies = [
+    "epprint @ git+https://git@github.com/jakeogh/epprint",
+    "globalverbose @ git+https://git@github.com/jakeogh/globalverbose",
+]
 
 config = {
     "version": "0.1",

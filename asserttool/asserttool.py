@@ -27,6 +27,8 @@ import sys
 from typing import Any
 
 from epprint import epprint
+from globalverbose import gv
+from globalverbose import gvd
 
 # enable other apps to "from asserttool import ic" with failback to epprint
 ic: Any = None

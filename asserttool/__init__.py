@@ -1,5 +1,7 @@
 from .asserttool import am_root
 from .asserttool import click_validate_slice
+from .asserttool import gv
+from .asserttool import gvd
 from .asserttool import ic
 from .asserttool import icp
 from .asserttool import icr

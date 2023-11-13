@@ -56,11 +56,6 @@ try:
 except ImportError:
     icr = epprint
 
-# def all_none(obj: object, verbose: bool|int|float):
-#    for i in obj:
-#        if i:
-#            return False
-
 
 # woah... sloooooo
 def disable_increment_debug(f):

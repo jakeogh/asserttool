@@ -201,16 +201,17 @@ def minone(
     raise ValueError(thing)
 
 
-def both_or_none(
+def all_or_none(
     thing,
     *,
     msg: None | str = None,
 ):
+    target = len(thing)
     count = 0
     for x in thing:
         if bool(x):
             count += 1
-    if count in {0, 2}:
+    if count in {0, target}:
         return True
     if msg:
         raise ValueError(thing, msg)

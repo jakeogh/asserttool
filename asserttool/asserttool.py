@@ -199,3 +199,19 @@ def minone(
     if msg:
         raise ValueError(thing, msg)
     raise ValueError(thing)
+
+
+def both_or_none(
+    thing,
+    *,
+    msg: None | str = None,
+):
+    count = 0
+    for x in thing:
+        if bool(x):
+            count += 1
+    if count in {0, 2}:
+        return True
+    if msg:
+        raise ValueError(thing, msg)
+    raise ValueError(thing)

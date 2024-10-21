@@ -3,7 +3,7 @@ isort:skip_file
 """
 
 from .asserttool import all_or_none as all_or_none
-from .asserttool import am_root as alt_root
+from .asserttool import am_root as am_root
 from .asserttool import click_validate_slice as click_validate_slice
 from .asserttool import gv as gv
 from .asserttool import gvd as gvd

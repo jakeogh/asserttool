@@ -41,6 +41,7 @@ icr: Any = None
 icp: Any = None
 try:
     from icecream import ic  # https://github.com/gruns/icecream
+    ic.configureOutput(includeContext=False)
 except ImportError:
     ic = epprint
 

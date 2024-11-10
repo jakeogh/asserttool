@@ -41,7 +41,8 @@ icr: Any = None
 icp: Any = None
 try:
     from icecream import ic  # https://github.com/gruns/icecream
-    ic.configureOutput(includeContext=False)
+
+    ic.configureOutput(includeContext=True)
 except ImportError:
     ic = epprint
 
@@ -49,6 +50,7 @@ try:
     from icecream import IceCreamDebugger
 
     icp = IceCreamDebugger()
+    icp.configureOutput(includeContext=True)
 except ImportError:
     icp = epprint
 

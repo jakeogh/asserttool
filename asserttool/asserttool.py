@@ -52,7 +52,8 @@ try:
     icp = IceCreamDebugger()
     icp.configureOutput(includeContext=True)
     icp.enable()
-except ImportError:
+except ImportError as e:
+    epprint(f"{e=}")
     icp = epprint
 
     # try:

@@ -55,10 +55,10 @@ try:
 except ImportError:
     icp = epprint
 
-try:
-    from icecream import icr  # https://github.com/jakeogh/icecream
-except ImportError:
-    icr = epprint
+    # try:
+    #    from icecream import icr  # https://github.com/jakeogh/icecream
+    # except ImportError:
+    #    icr = epprint
 
 
 # woah... sloooooo

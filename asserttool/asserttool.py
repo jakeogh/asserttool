@@ -32,7 +32,6 @@ import sys
 from typing import Any
 
 from epprint import epprint
-from globalverbose import gv
 from globalverbose import gvd
 
 # enable other apps to "from asserttool import ic" with failback to epprint
@@ -128,7 +127,10 @@ def embed_ipdb():
     ipdb.set_trace()
 
 
-def pause(message: str = "", ipython: bool = False):
+def pause(
+    message: str = "",
+    ipython: bool = False,
+):
     assert isinstance(message, str)
     if ipython:
         message += " (type 'ipython' to enter shell or 'ipdb' to enter debugger): "

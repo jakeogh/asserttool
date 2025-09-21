@@ -88,40 +88,6 @@ def disable_increment_debug(f):
     return inner
 
 
-def validate_slice(slice_syntax: str):
-    assert isinstance(slice_syntax, str)
-    assert slice_syntax.startswith("[")
-    assert slice_syntax.endswith("]")
-    for c in slice_syntax[1:-1]:
-        if c not in [
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "-",
-            ":",
-        ]:
-            raise ValueError(slice_syntax)
-    return slice_syntax
-
-
-def click_validate_slice(
-    ctx,
-    param,
-    value,
-):
-    # ic(param, value)
-    if value is not None:
-        validate_slice(value)
-        return value
-
-
 def embed_ipdb():
     # pylint: disable=import-error
     import ipdb

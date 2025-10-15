@@ -2,28 +2,6 @@
 # -*- coding: utf8 -*-
 # disable: byte-vector-replacer
 
-# pylint: disable=useless-suppression             # [I0021]
-# pylint: disable=missing-docstring               # [C0111] docstrings are always outdated and wrong
-# pylint: disable=missing-param-doc               # [W9015]
-# pylint: disable=missing-module-docstring        # [C0114]
-# pylint: disable=fixme                           # [W0511] todo encouraged
-# pylint: disable=line-too-long                   # [C0301]
-# pylint: disable=too-many-instance-attributes    # [R0902]
-# pylint: disable=too-many-lines                  # [C0302] too many lines in module
-# pylint: disable=invalid-name                    # [C0103] single letter var names, name too descriptive(!)
-# pylint: disable=too-many-return-statements      # [R0911]
-# pylint: disable=too-many-branches               # [R0912]
-# pylint: disable=too-many-statements             # [R0915]
-# pylint: disable=too-many-arguments              # [R0913]
-# pylint: disable=too-many-nested-blocks          # [R1702]
-# pylint: disable=too-many-locals                 # [R0914]
-# pylint: disable=too-many-public-methods         # [R0904]
-# pylint: disable=too-few-public-methods          # [R0903]
-# pylint: disable=no-member                       # [E1101] no member for base
-# pylint: disable=attribute-defined-outside-init  # [W0201]
-# pylint: disable=too-many-boolean-expressions    # [R0916] in if statement
-
-
 from __future__ import annotations
 
 import inspect
@@ -32,7 +10,6 @@ import sys
 from typing import Any
 
 from epprint import epprint
-from globalverbose import gvd
 
 # enable other apps to "from asserttool import ic" with failback to epprint
 ic: Any = None
@@ -59,33 +36,6 @@ except ImportError as e:
     #    from icecream import icr  # https://github.com/jakeogh/icecream
     # except ImportError:
     #    icr = epprint
-
-
-# woah... sloooooo
-def disable_increment_debug(f):
-    def inner(*args, **kwargs):
-        stack = inspect.stack()
-        depth = len(stack)
-        # ic(depth, f)
-        # if 'verbose' in kwargs.keys():
-        #    ic(depth, kwargs['verbose'])
-
-        # ic(depth, args, kwargs)  # gonna break stuff when this is used for __init__
-        if "verbose" in kwargs.keys():
-            if not isinstance(kwargs["verbose"], bool):
-                current_verbose = kwargs["verbose"]
-                # ic(depth, current_verbose)
-                kwargs["verbose"] = max(current_verbose - depth, 0)
-                # ic(depth, kwargs['verbose'])
-            # ic(kwargs['verbose'])
-        if "debug" in kwargs.keys():
-            if not isinstance(kwargs["debug"], bool):
-                current_verbose = kwargs["debug"]
-                kwargs["debug"] = max(current_verbose - depth, 0)
-            # ic(kwargs['debug'])
-        return f(*args, **kwargs)
-
-    return inner
 
 
 def embed_ipdb():
@@ -155,7 +105,7 @@ def maxone(thing, *, msg: None | str = None):
     for x in thing:
         if bool(x):
             count += 1
-    if count in [0, 1]:
+    if count in {0, 1}:
         return True
     if msg:
         raise ValueError(thing, msg)

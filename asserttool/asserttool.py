@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-import inspect
+# import inspect
 import os
 import sys
 from typing import Any

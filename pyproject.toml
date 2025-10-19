@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "asserttool"
-version = "0.1"
+version = "0.0.1760866180"
 description = "common programming functions, similar to assert"
 authors = [
     { name = "Justin Keogh", email = "github.com@v6y.net" },

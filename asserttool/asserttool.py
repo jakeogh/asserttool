@@ -13,7 +13,6 @@ from epprint import epprint
 
 # enable other apps to "from asserttool import ic" with failback to epprint
 ic: Any = None
-icr: Any = None
 icp: Any = None
 try:
     from icecream import ic  # https://github.com/gruns/icecream
@@ -31,11 +30,6 @@ try:
 except ImportError as e:
     epprint(f"{e=}")
     icp = epprint
-
-    # try:
-    #    from icecream import icr  # https://github.com/jakeogh/icecream
-    # except ImportError:
-    #    icr = epprint
 
 
 def embed_ipdb():

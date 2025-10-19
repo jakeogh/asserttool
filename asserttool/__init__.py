@@ -6,7 +6,6 @@ from .asserttool import all_or_none as all_or_none
 from .asserttool import am_root as am_root
 from .asserttool import ic as ic
 from .asserttool import icp as icp
-from .asserttool import icr as icr
 from .asserttool import maxone as maxone
 from .asserttool import minone as minone
 from .asserttool import not_root as not_root

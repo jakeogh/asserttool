@@ -7,15 +7,12 @@ backend-path = ["."]
 
 [project]
 name = "asserttool"
-version = "0.0.1761027719"
+version = "0.0.1761033057"
 description = "common programming functions, similar to assert"
 authors = [
     { name = "Justin Keogh", email = "github.com@v6y.net" },
 ]
-dependencies = [
-    "epprint @ git+https://git@github.com/jakeogh/epprint",
-    "globalverbose @ git+https://git@github.com/jakeogh/globalverbose",
-]
+dependencies = []
 license = "ISC"
 requires-python = ">=3.11"
 

@@ -7,7 +7,7 @@ backend-path = ["."]
 
 [project]
 name = "asserttool"
-version = "0.0.1761027237"
+version = "0.0.1761027719"
 description = "common programming functions, similar to assert"
 authors = [
     { name = "Justin Keogh", email = "github.com@v6y.net" },
@@ -34,13 +34,11 @@ asserttool = [
 [tool.pep508-url-version-backend]
 # Fast path - used when custom index is configured
 # Hook should update these version numbers when dependencies change
-dependencies-indexed = [
-]
+dependencies-indexed = ["epprint>=0.0.1761024887", "globalverbose>=0.0.1760909940"]
 
 # Slow fallback - used when custom index is NOT configured
 # Hook should keep these URLs up to date
-dependencies-git = [
-]
+dependencies-git = ["epprint @ git+https://git@github.com/jakeogh/epprint", "globalverbose @ git+https://git@github.com/jakeogh/globalverbose"]
 
 # Optional: Custom markers to detect if index is configured
 # If any of these strings appear in PIP_INDEX_URL or PIP_EXTRA_INDEX_URL,

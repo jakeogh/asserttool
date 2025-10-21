@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "asserttool"
-version = "0.0.1761026777"
+version = "0.0.1761027047"
 description = "common programming functions, similar to assert"
 authors = [
     { name = "Justin Keogh", email = "github.com@v6y.net" },
@@ -28,4 +28,23 @@ zip-safe = false
 [tool.setuptools.package-data]
 asserttool = [
     "py.typed",
+]
+# Configuration for our custom backend
+[tool.pep508-url-version-backend]
+# Fast path - used when custom index is configured
+# Hook should update these version numbers when dependencies change
+dependencies-indexed = [
+]
+
+# Slow fallback - used when custom index is NOT configured
+# Hook should keep these URLs up to date
+dependencies-git = [
+]
+
+# Optional: Custom markers to detect if index is configured
+# If any of these strings appear in PIP_INDEX_URL or PIP_EXTRA_INDEX_URL,
+# we'll use the fast path
+index-urls = [
+    "jakeogh.github.io",
+    "pip-index",
 ]

@@ -80,7 +80,7 @@ def am_root():
     return True
 
 
-def one(thing, *, msg: None | str = None):
+def one(thing, *, msg: None | str = None) -> bool:
     count = 0
     for x in thing:
         # eprint("x:", x, bool(x))
@@ -94,7 +94,7 @@ def one(thing, *, msg: None | str = None):
     raise ValueError(thing)
 
 
-def maxone(thing, *, msg: None | str = None):
+def maxone(thing, *, msg: None | str = None) -> bool:
     count = 0
     for x in thing:
         if bool(x):
@@ -110,7 +110,7 @@ def minone(
     thing,
     *,
     msg: None | str = None,
-):
+) -> bool:
     count = 0
     for x in thing:
         if bool(x):
@@ -126,7 +126,7 @@ def all_or_none(
     thing,
     *,
     msg: None | str = None,
-):
+) -> bool:
     target = len(thing)
     count = 0
     for x in thing:

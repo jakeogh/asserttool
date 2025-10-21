@@ -1,12 +1,13 @@
 [build-system]
 requires = [
-    "setuptools>=61.0",
+    "setuptools>=61.0", "tomlkit",
 ]
-build-backend = "setuptools.build_meta"
+build-backend = "pep508_url_version_backend"
+backend-path = ["."]
 
 [project]
 name = "asserttool"
-version = "0.0.1761027047"
+version = "0.0.1761027237"
 description = "common programming functions, similar to assert"
 authors = [
     { name = "Justin Keogh", email = "github.com@v6y.net" },

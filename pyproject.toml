@@ -7,7 +7,7 @@ backend-path = ["."]
 
 [project]
 name = "asserttool"
-version = "1!0.0.1761250301"
+version = "1!0.0.1761250315"
 description = "common programming functions, similar to assert"
 authors = [
     { name = "Justin Keogh", email = "github.com@v6y.net" },

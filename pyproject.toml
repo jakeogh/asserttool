@@ -7,7 +7,7 @@ backend-path = ["."]
 
 [project]
 name = "asserttool"
-version = "1!0.0.1761250315"
+version = "1!0.0.1784683411"
 description = "common programming functions, similar to assert"
 authors = [
     { name = "Justin Keogh", email = "github.com@v6y.net" },
@@ -31,7 +31,7 @@ asserttool = [
 [tool.pep508-url-version-backend]
 # Fast path - used when custom index is configured
 # Hook should update these version numbers when dependencies change
-dependencies-indexed = ["icecream", "epprint>=0.0.1761024887", "globalverbose>=0.0.1761031290"]
+dependencies-indexed = ["icecream", "epprint>=1!0.0.1784682874", "globalverbose>=0.0.1761031290"]
 
 # Slow fallback - used when custom index is NOT configured
 # Hook should keep these URLs up to date
